@@ -105,7 +105,7 @@ class _loginState extends State<login> {
               "The password Field is Empty");
         }
         else{
-          progressDialog(context , "Please Wait...");
+          progressDialog(context , "...Please Wait");
 
           var jwt = await attemplogin(email , password);
 
@@ -154,7 +154,7 @@ print(jwt);
            displayDialog(context , "Empty Field" ,
                "The Username Field is Empty");
         else {
-          progressDialog(context , "Please Wait...");
+          progressDialog(context , "...Please Wait");
           var res = await signup(email , password,username,phonenumber);
           if (res == 201) {
             pr.hide();

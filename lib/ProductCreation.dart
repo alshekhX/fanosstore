@@ -217,7 +217,6 @@ File _image;
 
 
   Future displayDialog(BuildContext context , String title , String text) {
-    pr.hide();
 
     showDialog(
       context: context ,
@@ -242,7 +241,7 @@ File _image;
     Widget confirm = FlatButton(onPressed: () {
       Navigator.of(context).pop();
       confirmation();
-      ; // dismiss dialog
+       // dismiss dialog
     } , child: Text("Confirm" , style: TextStyle(color: Colors.blue[500])) ,);
 
     Widget cancel = FlatButton(onPressed: () {
@@ -311,8 +310,8 @@ File _image;
         if (productDetails.length < 1) {
           displayDialog(context , "Empty Field" , "Product Details is empty");
         } else {
-          if (_image == null) {
-            displayDialog(context , "Empty Field" , "You must Upload an image");
+          if (_image == null || _image2 ==null || _image3==null) {
+            displayDialog(context , "Images Missing" , "You must Upload three images");
           }
           else {
             await chooseDisplayDialog(context , "Confirmation" ,
@@ -327,18 +326,21 @@ File _image;
     progressDialog(context , "...Please Wait");
     String res =
     await products.sendProduct(
-        name , price , userid , productDetails , _image.path);
+        name , price , userid , productDetails , _image.path,_image2.path,_image3.path);
     if (res == "s") {
       displayDialog(context , "Success" , "your Product have been post");
+      pr.hide();
     }
     if (res == "f") {
       displayDialog(context , "Failed" ,
           "Somthing went wrong, Check your internet connection and try again");
+      pr.hide();
     }
 
     if (res == "e") {
       displayDialog(context , "Failed" ,
           "Somthing went wrong, Check your internet connection and try again");
+      pr.hide();
     }
   }
 

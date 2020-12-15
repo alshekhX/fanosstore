@@ -40,7 +40,7 @@ class Products {
   }
 
   //sendProducts is here
-  Future sendProduct(dynamic name, dynamic price, dynamic userID,dynamic productDetails, String imagePath) async {
+  Future sendProduct(dynamic name, dynamic price, dynamic userID,dynamic productDetails, String imagePath,String imagePath2,String imagePath3) async {
     try {
 
 
@@ -52,10 +52,15 @@ class Products {
     req.fields['userId'] = userID;
     req.fields['productDetails'] = productDetails;
     req.files.add(await http.MultipartFile.fromPath('image', imagePath));
+      req.files.add(await http.MultipartFile.fromPath('image', imagePath2));
+      req.files.add(await http.MultipartFile.fromPath('image', imagePath3));
 
 
 
-      dynamic res = await req.send();
+
+
+
+    dynamic res = await req.send();
 
       if (res.statusCode == 200) {
         print('it works');
@@ -65,6 +70,7 @@ class Products {
         return "f";
       }
     } catch (e) {
+      print("error:$e");
       return "e";
     }
   }

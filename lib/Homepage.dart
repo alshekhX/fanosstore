@@ -212,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                             if (loadingProgress==null)return child;
                             return CachedNetworkImage(
                               imageUrl: imageurl,
-                              placeholder: (context,url) => Center(child: CircularProgressIndicator()),
+                              placeholder: (context,url) => Container( width:100,height:130,child: Center(child: CircularProgressIndicator())),
                               errorWidget: (context,url,error) => new Icon(Icons.error),
                             );
                           },
