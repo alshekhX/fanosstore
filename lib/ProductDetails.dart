@@ -5,7 +5,7 @@ import 'Product.dart';
 import 'Orders.dart';
 import 'Order.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-
+import 'package:carousel_slider/carousel_slider.dart';
 
 
 class ProductDetail extends StatefulWidget {
@@ -32,8 +32,8 @@ class _ProductDetailState extends State<ProductDetail> {
 //image related
   ProgressDialog pr;
 
-  String path;
-  String imageurl;
+  String path,path2,path3;
+  String imageurl,image2url,image3url;
   String cPath;
   int priceCounter;
   Orders helper;
@@ -60,38 +60,60 @@ class _ProductDetailState extends State<ProductDetail> {
     double height = MediaQuery.of(context).size.height;
 
     path = widget.product.productImage;
+    path2 =widget.product.productImage2;
+    path3=widget.product.productImage3;
+
+
     if (path == null) {
       cPath = '';
 
       imageurl =
           "https://www.indiaspora.org/wp-content/uploads/2018/10/image-not-available.jpg";
     } else {
+
       cPath = path.replaceRange(7, 7, "/");
+      String cPath2=path2.replaceRange(7, 7, "/");
+      String cPath3=path3.replaceRange(7, 7, "/");
+
       imageurl = imageP + cPath;
+      image2url =imageP +cPath2;
+      image3url=imageP+cPath3;
     }
 
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.product.name),
       ),
-      body: SingleChildScrollView(
-        child: Center(
+      body: Center(
+        child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                padding: EdgeInsets.all(16),
-                height: height / 1.7,
-                child: Image.network(imageurl),
+              CarouselSlider(
+                options: CarouselOptions(height: height*0.6),
+                items: [Image.network(imageurl),Image.network(image2url),Image.network(image3url)].map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(
+                              color: Colors.black
+                          ),
+                          child: i
+                      );
+                    },
+                  );
+                }).toList(),
               ),
               Container(
-                padding: EdgeInsets.only(left: 16, right: 16 ,bottom: 40),
+                padding: EdgeInsets.only(left: 16, right: 16 ,bottom: 40,top: 8),
                 child: Text("${widget.product.productDetails}"),
               ),
 
               //the add/minus counter
               Container(
-                
-                
+
+
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -124,7 +146,7 @@ class _ProductDetailState extends State<ProductDetail> {
                      height: 40,
                      child: FittedBox(
                        child: FloatingActionButton(
-                          
+
                           heroTag: "btn2",
                           onPressed: add,
                           child: Icon(Icons.add ,color: Colors.black,),
@@ -161,7 +183,6 @@ class _ProductDetailState extends State<ProductDetail> {
             ],
 
           ),
-
         ),
 
       ),
