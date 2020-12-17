@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'Product.dart';
 import 'Orders.dart';
-import 'Order.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class ProductDetail extends StatefulWidget {
@@ -97,7 +97,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           width: MediaQuery.of(context).size.width,
                           margin: EdgeInsets.symmetric(horizontal: 5.0),
                           decoration: BoxDecoration(
-                              color: Colors.black
+                              color: Colors.white
                           ),
                           child: i
                       );
@@ -106,8 +106,13 @@ class _ProductDetailState extends State<ProductDetail> {
                 }).toList(),
               ),
               Container(
+                padding: EdgeInsets.only( right: 16 ,bottom: 16,top: 16),
+
+                child:Text("Description", style: GoogleFonts.crimsonText(fontSize: 22,fontWeight: FontWeight.bold)) ,
+              ),
+              Container(
                 padding: EdgeInsets.only(left: 16, right: 16 ,bottom: 40,top: 8),
-                child: Text("${widget.product.productDetails}"),
+                child: Text("${widget.product.productDetails}",style: GoogleFonts.crimsonText(fontSize: 15,fontWeight: FontWeight.w600)),
               ),
 
               //the add/minus counter
@@ -117,13 +122,8 @@ class _ProductDetailState extends State<ProductDetail> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text("Price",style: TextStyle(
-                      fontSize: 20,
-                      foreground: Paint()
-                        ..style = PaintingStyle.stroke
-                        ..strokeWidth = 1
-                        ..color = Colors.orange.shade900,),),
-                    Text("${widget.product.price*priceCounter}"+" SDG"),
+                    Text("Price",style: GoogleFonts.crimsonText(fontSize: 20,fontWeight: FontWeight.bold)),
+                    Text("${widget.product.price*priceCounter}"+" SDG",style: GoogleFonts.crimsonText(fontSize: 18,fontWeight: FontWeight.w600)),
                     Container(
                       width:40,
                       height:40,
@@ -139,7 +139,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
                     Text(
                       "${priceCounter.toString()}",
-                      style: TextStyle(fontSize: 15),
+                      style:GoogleFonts.crimsonText(fontSize: 18,fontWeight: FontWeight.w600),
                     ),
                    FittedBox(child: Container(
                      width: 40,
@@ -176,7 +176,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       borderRadius: BorderRadius.circular(30.0),
 
 
-                    ) ,child: Text("Order Now",style: TextStyle(color: Colors.black),),),
+                    ) ,child: Text("Order Now",style: GoogleFonts.crimsonText(fontSize: 18,fontWeight: FontWeight.bold),),),
                   ),
               ))
 
@@ -243,7 +243,6 @@ else{
       messageTextStyle: TextStyle(
           color: Colors.white , fontSize: 19.0 , fontWeight: FontWeight.w600) ,
     );
-    Duration duration = Duration(seconds: 10);
     pr.show();
   }
 

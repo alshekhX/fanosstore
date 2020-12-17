@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'Products.dart';
 import 'package:flutter/material.dart';
 
@@ -68,7 +70,6 @@ class _HomePageState extends State<HomePage> {
     final double itemHeight = (size.height - kToolbarHeight - 100) / 2;
     final double itemWidth = size.width / 2;
 
-    NetworkImage image;
 
     int length = productss.length;
 
@@ -79,8 +80,8 @@ class _HomePageState extends State<HomePage> {
             children: [
 
 
-                UserAccountsDrawerHeader( accountName: (widget.payload['username']!=null)?Text(widget.payload['username']):Text(""),
-                  accountEmail: Text(widget.payload['email']),
+                UserAccountsDrawerHeader( accountName: (widget.payload['username']!=null)?Text(widget.payload['username'],style: crismonText(16, FontWeight.bold),):Text(""),
+                  accountEmail: Text(widget.payload['email'],style: crismonText(14, FontWeight.w600),),
                   currentAccountPicture: CircleAvatar(
 
                     child:  ClipRRect(
@@ -89,14 +90,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),) ,
               ListTile(
-                title: Text("All Product") ,
+                title: Text("All Product",style: crismonText(16, FontWeight.w600),) ,
                 onTap: () {
                   Navigator.push(context , MaterialPageRoute(
                       builder: (context) => HomePage.fromBase64(widget.jwt)));
                 } ,
               ) ,
               ListTile(
-                title: Text("My Product") ,
+                title: Text("My Product",style: crismonText(16, FontWeight.w600)) ,
                 onTap: () {
                   Navigator.push(context , MaterialPageRoute(
                       builder: (context) =>
@@ -104,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                 }
                 ,
               ) ,
-              ListTile(title: Text("My Orders") , onTap: () {
+              ListTile(title: Text("My Orders",style: crismonText(16, FontWeight.w600)) , onTap: () {
                 Navigator.push(context , MaterialPageRoute(
                     builder: (context) => UserOrders.fromBase64(widget.jwt)));
               })
@@ -143,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                 else {
                   setState(() {
                     this.visibleIcon = Icon(Icons.search);
-                    this.searchBar = Text('Products');
+                    this.searchBar = Text('All Products',style: crismonText(18, FontWeight.bold),);
                     refreshDeterminer = true;
                     getAllProduct();
                   });
@@ -226,24 +227,18 @@ class _HomePageState extends State<HomePage> {
                           children: <Widget>[
                         Padding(
                         padding: const EdgeInsets.only(bottom: 5,top: 3),
-                        child: Text(productss[index].name,style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-
-                          foreground: Paint()
-                            ..style = PaintingStyle.fill
-                            ..strokeWidth = 7
-                            ..color = Colors.black,),),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top:8.0),
+                          child: Text(productss[index].name,style: crismonText(15, FontWeight.bold),),
+                        ),
                       ) ,
                             Row(
                                 children:<Widget>[
-                                  Text("Price ",style: TextStyle(
-                                    fontSize: 15,
-                                    foreground: Paint()
-                                      ..style = PaintingStyle.stroke
-                                      ..strokeWidth = 1
-                                      ..color = Colors.orange.shade900,),),
-                                  Text(productss[index].price.toString() +" SDG")
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Text("Price ",style: crismonText(14, FontWeight.bold),),
+                                  ),
+                                  Text(productss[index].price.toString() +" SDG",style: crismonText(14, FontWeight.normal))
 
                                 ]
                             ),
@@ -316,5 +311,11 @@ class _HomePageState extends State<HomePage> {
   }
 
 
+
+  TextStyle crismonText(double fontSize,FontWeight fontWeight){
+
+    return GoogleFonts.crimsonText(fontSize: fontSize,fontWeight: fontWeight);
+
+  }
 
 }

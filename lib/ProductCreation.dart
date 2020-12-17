@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'Products.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:image_picker/image_picker.dart';
@@ -73,7 +74,7 @@ File _image;
             ListTile(
 
               leading: Icon(Icons.shopping_bag_outlined) ,
-              title: TextField(maxLengthEnforced: true,
+              title: TextField(maxLengthEnforced: true, style: crismonText(15, FontWeight.w600),
                 textInputAction: TextInputAction.next,          onEditingComplete: () => node.nextFocus(),
                 maxLength: 35,
                 controller: nameControler ,
@@ -82,7 +83,9 @@ File _image;
             ) ,
             ListTile(
               leading: Icon(Icons.attach_money_outlined) ,
-              title: TextField(keyboardType:TextInputType.number ,
+              title: TextField(maxLength: 12,style: crismonText(15, FontWeight.w600),
+                maxLengthEnforced: true,
+                keyboardType:TextInputType.number ,
                 textInputAction: TextInputAction.next,          onEditingComplete: () => node.nextFocus(),
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 controller: priceController ,
@@ -90,8 +93,11 @@ File _image;
               ) ,
             ) ,
             ListTile(
+
               leading: Icon(Icons.description_outlined) ,
-              title: TextField( textInputAction: TextInputAction.next,
+              title: TextField( textInputAction: TextInputAction.next,maxLengthEnforced: true,
+                style: crismonText(15, FontWeight.w600),
+              maxLength: 450,
               maxLines: null,
               onEditingComplete: () => node.nextFocus(),
                 controller: productDetailsController ,
@@ -113,7 +119,7 @@ File _image;
                   } ,
                   child: Text(
                     "Upload Images" ,
-                    style: TextStyle(color: Colors.white) ,
+                    style: crismonText(15, FontWeight.w600) ,
                   ) ,
                 ) ,
               ) ,
@@ -200,7 +206,7 @@ File _image;
                       borderRadius: BorderRadius.circular(30)) ,
                   child: Text(
                     "Post" ,
-                    style: TextStyle(color: Colors.black) ,
+                    style: crismonText(15, FontWeight.w600) ,
                   ) ,
                   color: Colors.yellowAccent.shade400 ,
                   onPressed: () {
@@ -290,7 +296,6 @@ File _image;
       messageTextStyle: TextStyle(
           color: Colors.white , fontSize: 19.0 , fontWeight: FontWeight.w600) ,
     );
-    Duration duration = Duration(seconds: 10);
     pr.show();
   }
 
@@ -328,8 +333,9 @@ File _image;
     await products.sendProduct(
         name , price , userid , productDetails , _image.path,_image2.path,_image3.path);
     if (res == "s") {
-      displayDialog(context , "Success" , "your Product have been post");
       pr.hide();
+
+      displayDialog(context , "Success" , "your Product have been post");
     }
     if (res == "f") {
       displayDialog(context , "Failed" ,
@@ -438,5 +444,11 @@ File _image;
         });
   }
 
+  TextStyle crismonText(double fontSize,FontWeight fontWeight){
+    return GoogleFonts.crimsonText(fontSize: fontSize,fontWeight: fontWeight);
+
+  }
 
 }
+
+

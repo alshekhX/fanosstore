@@ -1,10 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'Products.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'Homepage.dart';
-import 'ProductCreation.dart';
 import 'userProducts.dart';
 import 'Orders.dart';
 
@@ -54,8 +53,8 @@ class _UserOrdersState extends State<UserOrders> {
       drawer: Drawer(
         child: ListView(
           children: [
-            UserAccountsDrawerHeader( accountName: Text("Joan Holloway"),
-              accountEmail: Text(widget.payload['email']),
+            UserAccountsDrawerHeader(   accountName: (widget.payload['username']!=null)?Text(widget.payload['username'],style: crismonText(16, FontWeight.bold),):Text(""),
+              accountEmail: Text(widget.payload['email'],style: crismonText(14, FontWeight.w600)),
               currentAccountPicture: CircleAvatar(
 
                 child:  ClipRRect(
@@ -65,7 +64,7 @@ class _UserOrdersState extends State<UserOrders> {
               ),) ,
             
             ListTile(
-              title: Text("All Product"),
+              title: Text("All Product",style: crismonText(16, FontWeight.w600)),
               onTap: () {
                 Navigator.push(
                     context,
@@ -74,7 +73,7 @@ class _UserOrdersState extends State<UserOrders> {
               },
             ),
             ListTile(
-              title: Text("My Product"),
+              title: Text("My Product",style: crismonText(16, FontWeight.w600)),
               onTap: () {
                 Navigator.push(
                     context,
@@ -84,7 +83,7 @@ class _UserOrdersState extends State<UserOrders> {
               },
             ),
             ListTile(
-                title: Text("My Orders"),
+                title: Text("My Orders",style: crismonText(16, FontWeight.w600)),
                 onTap: () {
                   Navigator.push(
                       context,
@@ -119,16 +118,16 @@ class _UserOrdersState extends State<UserOrders> {
                 color: Colors.white,
                 elevation: 2.0,
                 child: ListTile(
-                  title: Text("${ordersList[position].productName}"),
+                  title: Text("${ordersList[position].productName}",style: crismonText(16, FontWeight.bold)),
                   subtitle:Column( crossAxisAlignment: CrossAxisAlignment.start,children: [
-                    Text("Quantity: ${ordersList[position].quantity.toString()}"),
-                    Text("Total Price: ${totalprice} SDG"),
+                    Text("Quantity: ${ordersList[position].quantity.toString()}",style: crismonText(16, FontWeight.w600)),
+                    Text("Total Price: ${totalprice} SDG",style: crismonText(16, FontWeight.w600)),
                   ],) ,
                   //Text("Quantity: ${ordersList[position].quantity.toString()}"),
                   isThreeLine: true,
                   trailing:Column( crossAxisAlignment: CrossAxisAlignment.end,children: [
-                    Text(day),
-                    Text(time)
+                    Text(day,style: crismonText(16, FontWeight.w600)),
+                    Text(time,style: crismonText(16, FontWeight.w600))
                   ],) ,
                 ),
               );
@@ -160,5 +159,12 @@ class _UserOrdersState extends State<UserOrders> {
       ordersList = ordersList;
     });
     _refreshController.refreshCompleted();
+  }
+
+
+  TextStyle crismonText(double fontSize,FontWeight fontWeight){
+//    ,style: crismonText(16, FontWeight.bold)
+    return GoogleFonts.crimsonText(fontSize: fontSize,fontWeight: fontWeight);
+
   }
 }
